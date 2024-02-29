@@ -3,9 +3,11 @@
 import argparse
 import json
 from typing import Iterable, List
+from string import Template
 
 import requests
 
+prompt_template = Template("Human: ${inst} </s> Assistant: ")
 
 def clear_line(n: int = 1) -> None:
     LINE_UP = "\033[1A"
@@ -19,15 +21,19 @@ def post_http_request(
     api_url: str,
     temperature: int,
     max_tokens: int,
-    use_beam_search: bool,
-    stream: bool,
+    top_k: int,
+    top_p: int,
+    n: int,
+    stream: bool
 ) -> requests.Response:
     headers = {"User-Agent": "Test Client"}
     pload = {
-        "prompt": prompt,
-        "use_beam_search": use_beam_search,
+        "prompt": prompt_template.safe_substitute({"inst": prompt}),
         "temperature": temperature,
         "max_tokens": max_tokens,
+        "top_k":top_k,
+        "top_p": top_p,
+        "n": n,
         "stream": stream,
     }
     response = requests.post(api_url, headers=headers, json=pload, stream=True)
@@ -55,21 +61,28 @@ if __name__ == "__main__":
     parser.add_argument("--host", type=str, default="localhost")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--temperature", type=int, default=0)
-    parser.add_argument("--max_tokens", type=int, default=64)
+    parser.add_argument("--max_tokens", type=int, default=128)
+    parser.add_argument("--top_k", type=int, default=-1)
+    parser.add_argument("--top_p", type=int, default=1)
+    parser.add_argument("--n", type=int, default=1)
     parser.add_argument(
-        "--prompt", type=str, default="Gime me ABC notation for some Irish music babe"
+        "--prompt", type=str, default="Develop a musical piece using the given chord progression. 'Dm', 'C', 'Dm', 'Dm', 'C', 'Dm', 'C', 'Dm'"
     )
     parser.add_argument("--stream", action="store_true")
-    parser.add_argument("--use_beam_search", action="store_false")
 
     args = parser.parse_args()
     prompt = args.prompt
     api_url = f"http://{args.host}:{args.port}/generate"
     stream = args.stream
 
-    response = post_http_request(
-        prompt, api_url, args.temperature, args.max_tokens, args.use_beam_search, stream
-    )
+    response = post_http_request(prompt=prompt, 
+                                 api_url=api_url, 
+                                 temperature=args.temperature, 
+                                 max_tokens=args.max_tokens, 
+                                 top_k=args.top_k, 
+                                 top_p=args.top_p, 
+                                 n=args.n, 
+                                 stream=stream)
 
     if stream:
         num_printed_lines = 0

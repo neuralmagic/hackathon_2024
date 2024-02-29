@@ -1,5 +1,1 @@
-python -m vllm.entrypoints.api_server \
-# replace with the name/directory of the model
---model m-a-p/ChatMusician-Base \ 
-# we will run two V100s
---tensor-parallel-size 2 
+python -m vllm.entrypoints.api_server --model m-a-p/ChatMusician --tensor-parallel-size 1
