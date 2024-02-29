@@ -23,7 +23,7 @@ def parse_function(example):
     index_eos = output.find("</s>")
     output = output[:index_eos+4]
 
-    return {"prompt": prompt, "output": output}
+    return {"prompt": prompt, "text": output}
 
 irishman_data = data.filter(lambda x: filter_function(x, ["sander-wood/irishman"]))
 irishman_data = irishman_data.train_test_split(test_size=2000, train_size=100000)
