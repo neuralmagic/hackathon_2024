@@ -1,0 +1,15 @@
+{
+  "name": "hackathon_test_2024",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --port 8000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "abcjs": "^6.3.0"
+  }
+}
