@@ -1,1 +1,1 @@
-python -m vllm.entrypoints.api_server --model m-a-p/ChatMusician --tensor-parallel-size 1
+python -m vllm.entrypoints.api_server --model /root/hackathon_2024/chat_musician_oneshot_sparse_dummy --quantization gptq --tensor-parallel-size 1
