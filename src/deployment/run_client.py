@@ -4,7 +4,7 @@ import argparse
 import json
 from typing import Iterable, List
 from string import Template
-
+import re
 import requests
 
 prompt_template = Template("Human: ${inst} </s> Assistant: ")
@@ -55,6 +55,15 @@ def get_response(response: requests.Response) -> List[str]:
     output = data["text"]
     return output
 
+def _is_line_abc_notation(line:str):
+    abc_pattern = r'(X:\d+\n(?:[^\n]*\n)+)'
+    abc_notation = re.findall(abc_pattern, line)
+    if not abc_notation:
+        print("WARNING: Unable to extract ABC notation from the output")
+    else:
+        print("---- Extracted ABC notation ----")
+        print(abc_notation[0])
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -96,3 +105,6 @@ if __name__ == "__main__":
         output = get_response(response)
         for i, line in enumerate(output):
             print(f"Beam candidate {i}: {line!r}", flush=True)
+            _is_line_abc_notation(line)
+
+
