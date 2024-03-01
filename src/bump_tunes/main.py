@@ -47,7 +47,7 @@ app.mount("/", StaticFiles(directory="static", html=True), name="static")
 def make_user_request(request_args: RequestModel):
     host = "localhost"
     port = 8000
-    default_args = { 'prompt': "Develop a musical piece using the given chord progression. 'Dm', 'C', 'Dm', 'Dm', 'C', 'Dm', 'C', 'Dm'", 'api_url': f"http://{host}:{port}/generate", 'temperature': 0, 'max_tokens': 128, 'top_k': -1, 'top_p': 1, 'n': 1, 'stream': False }
+    default_args = { 'prompt': "Develop a musical piece using the given chord progression. 'Dm', 'C', 'Dm', 'Dm', 'C', 'Dm', 'C', 'Dm'", 'api_url': f"http://{host}:{port}/generate", 'temperature': 0.2, 'max_tokens': 512, 'top_k': 40, 'top_p': .9, 'n': 1, 'stream': False }
 
     args = {k: request_args.__dict__.get(k, default_args[k]) if request_args.__dict__.get(k, default_args[k]) is not None else default_args[k] for k in default_args}
 
