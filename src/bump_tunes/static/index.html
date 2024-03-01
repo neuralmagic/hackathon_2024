@@ -2,12 +2,95 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FastAPI and Parcel Example</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+    />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .highlight {
+        fill: #0a9ecc;
+      }
+      .abcjs-cursor {
+        stroke: red;
+      }
+  
+    </style>
+    <link rel="stylesheet" type="text/css" href="abcjs-audio.css">
   </head>
   <body>
     <script type="module" src="script.js"></script>
-    <div id="paper"></div>
+    <div>
+      <div class="mdl-layout mdl-js-layout">
+        <header>
+          <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Music Generator ♫</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+              <a
+                style="color: black"
+                class="mdl-navigation__link"
+                href="https://arxiv.org/abs/2402.16153"
+                >Paper</a
+              >
+              <a
+                style="color: black"
+                class="mdl-navigation__link"
+                href="https://huggingface.co/m-a-p/ChatMusician"
+                >Model</a
+              >
+            </nav>
+          </div>
+        </header>
+        <main
+          class="mdl-layout__content"
+        >
+          <form id="form" style="display: flex; align-items: center; justify-content: center;">
+            <div 
+            style="width: 400px; margin: 10px 0;"
+            class="mdl-textfield mdl-js-textfield">
+              <textarea
+                class="mdl-textfield__input"
+                style="width: 400px;"
+                type="text"
+                rows="3"
+                id="prompt-input"
+              ></textarea>
+              <label class="mdl-textfield__label" for="prompt-input"
+                >Develop a piece using the given chord progression.
+            </br>
+            'Dm', 'C', 'Dm', 'Dm', 'C', 'Dm', 'C', 'Dm'</label
+              >
+            </div>
+            <button style="margin: 0 0 0 30px; border: none; background: none;" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+              <span style="font-size: 35px;">🎼</span>
+            </button>
+          </form>
+          <div style="text-align: center; color: red;" id="error"></div>
+          <div style="text-align: center;" id="invalid-response"></div>
+          <div id="abcjs-content">
+            <div id="paper"></div>
+            <div id="audio"></div>
+          </div>
+        </main>
+        <footer class="mdl-mini-footer" style="padding: 32px 40px; background: rgb(0,0,0,.0)">
+          <div class="mdl-mini-footer__left-section">
+            <div style="color: rgb(0,0,0,0.3);" class="mdl-logo">Alex M, Sara A, Damien B, Ben B</div>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>
